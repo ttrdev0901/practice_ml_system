@@ -7,15 +7,13 @@ from sqlalchemy import Text
 from sqlalchemy.types import JSON
 from sqlalchemy import create_engine
 
-from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql.functions import current_timestamp
 
 # --------------
 # 自作モジュール
 # --------------
-from app.utils import database
+from app.db.database import Base
 
-Base = declarative_base()
 
 class Project(Base):
     __tablename__ = "projects"

@@ -3,5 +3,5 @@
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/.env/Lib/site-packages/"
     ],
-    "python.languageServer": "Jedi"
+    "python.languageServer": "Pylance"
 }
