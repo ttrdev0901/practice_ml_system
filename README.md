@@ -1,7 +1,11 @@
 # practice_ml_system
 
 ## Fast API
-https://fastapi.tiangolo.com/ja
+- [公式](https://fastapi.tiangolo.com/ja)
+- セキュリティ:
+    - https://fastapi.tiangolo.com/ja/tutorial/security/first-steps/
+    - https://fastapi.tiangolo.com/ja/tutorial/security/oauth2-jwt/
+
 
 ## SQLAlchemy
 - https://docs.sqlalchemy.org/en/14/orm/tutorial.html
@@ -20,3 +24,26 @@ https://fastapi.tiangolo.com/ja
 - python language server
     - Pylanceだとsqlalchemyの補完がいまいち: declarative_baseが出ない
     - Jediに変更
+
+# Curl
+```bash
+curl -X POST \
+http://localhost:8000/projects/ \
+-H 'Content-Type: application/json' \
+-d '{"project_name": "sample_project", "description": "description"}'
+```
+
+### タスク
+- DB Migration導入
+    - https://alembic.sqlalchemy.org/en/latest/
+
+- ユーザー認証
+以下の順番で学習していく
+1. 公式のセキュリティをやる
+2. FastAPI-loginなどの拡張機能を試す
+
+- appをdocker-composeに含める
+
+- appのRemote-container設定
+
+- テキストを進める

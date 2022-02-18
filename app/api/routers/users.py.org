@@ -1,0 +1,49 @@
+from datetime import datetime
+from datetime import timedelta
+from fastapi import APIRouter
+from fastapi import Depends
+from jose import jwt
+from jose import JWTError
+from sqlalchemy.orm import Session
+from typing import Optional
+
+from app.api.security import ALGORITHM, SECRET_KEY, verify_password
+from app.db.database import get_db
+from app.db import cruds
+from app.db import schemas
+
+router = APIRouter()
+
+def authonticate_user(user_name: str, password: str, db: Session = Depends(get_db)):
+    user = cruds.selectUserByName(db=db, name=user_name)
+    if not user:
+        return False
+    if not verify_password(password, user.password):
+        return False
+    return user
+
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(claims=to_encode, key=SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+
+@router.get("/users/all")
+def users_all(db: Session = Depends(get_db)):
+    return cruds.selectUserAll(db=db)
+
+
+@router.get("/users/name/{user_name}")
+def user_by_name(user_name: str, db: Session = Depends(get_db)):
+    return cruds.selectUserByName(db=db, name=user_name)
+
+
+@router.post("/users/")
+def add_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    return cruds.addUser(db=db, user=user)

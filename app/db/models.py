@@ -1,4 +1,6 @@
+from time import timezone
 from sqlalchemy import Column
+from sqlalchemy import BOOLEAN
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
@@ -124,3 +126,32 @@ class Experiment(Base):
         server_default=current_timestamp(),
         nullable=False
     )
+
+# class User(Base):
+#     __tablename__ = "users"
+
+#     user_id = Column(
+#         String(255),
+#         primary_key=True,
+#         comment="主キー"
+#     )   
+#     name = Column(
+#         String(255),
+#         nullable=False,
+#         comment="ユーザー名"
+#     )
+#     password = Column(
+#         String(255),
+#         nullable=False,
+#         comment="パスワード"
+#     )
+#     is_active = Column(
+#         BOOLEAN,
+#         nullable=False,
+#         comment="ユーザーステータス"
+#     )
+#     created_datatime = Column(
+#         DateTime(timezone=True),
+#         server_default=current_timestamp(),
+#         nullable=False
+#     )

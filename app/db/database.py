@@ -21,10 +21,18 @@ engine = create_engine(
     url=DBSettings().get_uri()
     )
 
-SettionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try: 
+        yield db
+    finally:
+        db.close()
 
 
 
