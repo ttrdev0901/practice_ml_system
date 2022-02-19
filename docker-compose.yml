@@ -5,14 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app
-    volumes:
-      - ${PWD}./app:/
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
 
   postgres:
     build:
       context: .
       dockerfile: Dockerfile.db
     container_name: postgres
+    hostname: postgres
     ports:
       - 5432:5432
     environment:
