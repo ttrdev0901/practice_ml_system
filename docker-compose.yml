@@ -5,17 +5,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app
+    environment:
+      - DBHOST=db
+      - DBNAME=mldb
+      - DBUSER=ml_app
+      - DBPASSWORD=password
+      - DBPORT=5432
+      - DBCONNECTOR=psycopg2
     ports:
       - 80:80
+    command: /wait-for-it.sh
     depends_on:
-      - postgres
+      - db
 
-  postgres:
+  db:
     build:
       context: .
       dockerfile: Dockerfile.db
     container_name: postgres
-    hostname: postgres
     ports:
       - 5432:5432
     environment:
@@ -24,4 +31,6 @@ services:
       - POSTGRES_DB=mldb
       - TZ=Asia/Tokyo
       - PGTZ=Asia/Tokyo
+      - POSTGRES_INITDB_ARGS="--encoding=UTF-8"
+    stdin_open: true
     restart: always

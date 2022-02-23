@@ -1,12 +1,3 @@
-import os
-os.environ["hostname"] = "localhost" 
-os.environ["dbname"] = "mldb"
-os.environ["username"] = "ml_app"
-os.environ["password"] = "password"
-os.environ["port"] = "5432"
-os.environ["connector"] = "psycopg2"
-
-
 from fastapi import FastAPI
 
 
